@@ -1,0 +1,219 @@
+<!--ROBERTO CALDERÓN CALDERÓN, DIEGO RUEDA BRIONES-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payly – Ingresos y Gastos</title>
+  <link rel="stylesheet" href="Estilo1.css" />
+</head>
+<body id="pagina-movs">
+  <header class="encabezado">
+    <div class="logo"><div class="nucleo"></div></div>
+    <div class="marca">
+      <h1>Payly</h1>
+      <small>Gestor de gastos y ahorro</small>
+    </div>
+
+    <nav class="pestanas" aria-label="Secciones">
+      <a class="pestana activa" href="ingresosGastos.html" title="Ingresos y Gastos">Ingresos y Gastos</a>
+      <a class="pestana" href="ahorro.html" title="Ahorro">Ahorro</a>
+      <a class="pestana" href="registro.html" title="Registro">Registro</a>
+      <a class="pestana" href="sobre.html" title="Sobre Payly">Sobre Payly</a>
+    </nav>
+  </header>
+
+  <main class="principal">
+    <section class="panel">
+      <div class="titulo-seccion">
+        <h2>Ingresos y Gastos</h2>
+        <div class="etiqueta" id="chip-resumen">Balance: $0.00</div>
+      </div>
+
+      <div class="rejilla-3">
+        <!--FORMULARIO AGREGAR MOVIMIENTO-->
+        <div class="panel" style="margin:0">
+          <h3 style="margin:0 0 8px;font-size:16px">Agregar movimiento</h3>
+          <div class="fila">
+            <select id="tipo" class="seleccion" aria-label="Tipo">
+              <option value="ingreso">Ingreso</option>
+              <option value="gasto">Gasto</option>
+            </select>
+            <input id="concepto" class="entrada" placeholder="Concepto (ej. Nómina, Supermercado)" />
+          </div>
+          <div class="fila">
+            <div class="grupo-entrada" style="max-width:320px">
+              <span class="prefijo">$ MXN</span>
+              <input id="monto" type="number" step="0.01" class="entrada con-prefijo" placeholder="Monto" />
+            </div>
+            <select id="categoria" class="seleccion" aria-label="Categoría">
+              <option value="">Categoría…</option>
+              <option>Alimentación</option>
+              <option>Transporte</option>
+              <option>Servicios</option>
+              <option>Entretenimiento</option>
+              <option>Salud</option>
+              <option>Otros</option>
+            </select>
+            <input id="fecha" type="date" class="entrada" />
+          </div>
+          <div class="fila">
+            <button id="boton-agregar" class="boton">Agregar</button>
+          </div>
+        </div>
+
+        <!--FILTROS Y BÚSQUEDA-->
+        <div class="panel" style="margin:0">
+          <h3 style="margin:0 0 8px;font-size:16px">Filtros de búsqueda</h3>
+          <div class="fila">
+            <input id="filtro-texto" class="entrada" placeholder="Buscar por concepto" />
+            <select id="filtro-tipo" class="seleccion" aria-label="Filtrar por tipo">
+              <option value="">Tipo (todos)</option>
+              <option value="ingreso">Ingreso</option>
+              <option value="gasto">Gasto</option>
+            </select>
+          </div>
+          <div class="fila">
+            <select id="filtro-categoria" class="seleccion" aria-label="Filtrar por categoría">
+              <option value="">Categoría (todas)</option>
+              <option>Alimentación</option>
+              <option>Transporte</option>
+              <option>Servicios</option>
+              <option>Entretenimiento</option>
+              <option>Salud</option>
+              <option>Otros</option>
+            </select>
+            <div class="grupo-fecha">
+              <span class="muted">De</span>
+              <input id="filtro-desde" type="date" class="entrada" aria-label="Desde" />
+            </div>
+            <div class="grupo-fecha">
+              <span class="muted">a</span>
+              <input id="filtro-hasta" type="date" class="entrada" aria-label="Hasta" />
+            </div>
+          </div>
+          <div class="fila">
+            <button id="aplicar-filtros" class="boton secundario">Aplicar filtros</button>
+            <button id="limpiar-filtros" class="boton fantasma">Limpiar</button>
+          </div>
+        </div>
+
+        <!--RESUMEN-->
+        <div class="panel" style="margin:0">
+          <h3 style="margin:0 0 8px;font-size:16px">Resumen</h3>
+          <div class="rejilla-2">
+            <div>
+              <div class="muted">Ingresos</div>
+              <div id="suma-ingresos" style="font-weight:700;font-size:20px;color:var(--ok)">$0.00</div>
+            </div>
+            <div>
+              <div class="muted">Gastos</div>
+              <div id="suma-gastos" style="font-weight:700;font-size:20px;color:var(--coral)">$0.00</div>
+            </div>
+          </div>
+          <div style="margin-top:8px">
+            <div class="muted">Balance</div>
+            <div id="suma-balance" style="font-weight:700;font-size:20px">$0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!--TABLA DE MOVIMIENTOS-->
+      <div class="panel" style="margin-top:12px">
+        <table class="tabla" aria-describedby="lista de movimientos">
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th>Tipo</th>
+              <th style="text-align:right">Monto</th>
+              <th>Categoría</th>
+              <th>Fecha</th>
+              <th style="text-align:right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL PARA EDITAR MOVIMIENTO -->
+  <div class="modal-fondo" id="modal-editar-mov" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal">
+      <header>
+        <h3>Editar movimiento</h3>
+      </header>
+
+      <div class="fila">
+        <select id="e-tipo" class="seleccion" aria-label="Tipo de movimiento">
+          <option value="ingreso">Ingreso</option>
+          <option value="gasto">Gasto</option>
+        </select>
+        <input id="e-concepto" class="entrada" placeholder="Concepto" />
+      </div>
+
+      <div class="fila">
+        <div class="grupo-entrada" style="max-width:320px">
+          <span class="prefijo">$ MXN</span>
+          <input id="e-monto" type="number" step="0.01" class="entrada con-prefijo" placeholder="Monto" />
+        </div>
+        <select id="e-categoria" class="seleccion" aria-label="Categoría">
+          <option>Alimentación</option>
+          <option>Transporte</option>
+          <option>Servicios</option>
+          <option>Entretenimiento</option>
+          <option>Salud</option>
+          <option>Otros</option>
+        </select>
+        <input id="e-fecha" type="date" class="entrada" aria-label="Fecha" />
+      </div>
+
+      <footer>
+        <button class="boton fantasma" data-cerrar="#modal-editar-mov">Cancelar</button>
+        <button class="boton" id="guardar-editar-mov">Guardar cambios</button>
+      </footer>
+    </div>
+  </div>
+
+
+  <!--CHATBOT PAYLY-->
+  <div id="chatbot-contenedor">
+    <button id="boton-chatbot" class="boton-chatbot" type="button">💬 Ayuda</button>
+    <div id="ventana-chatbot" class="ventana-chatbot oculto" aria-label="Chatbot Payly" aria-live="polite">
+      <header class="encabezado-chatbot">
+        <strong>Asistente Payly</strong>
+        <button type="button" id="cerrar-chatbot" class="boton-cerrar-chatbot">×</button>
+      </header>
+      <div id="chatbot-mensajes" class="chatbot-mensajes"></div>
+      <form id="chatbot-formulario" class="chatbot-formulario">
+        <input id="chatbot-entrada" class="entrada-chatbot" type="text" placeholder="Escribe tu duda sobre gastos o ahorro..." autocomplete="off" />
+        <button class="boton-enviar-chatbot" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="compartido.js"></script>
+  <script src="app-ingresosgastos.js"></script>
+  <script src="app-chatbot.js"></script>
+</body>
+</html>
+<script>
+  window.addEventListener('mouseover', initLandbot, { once: true });
+  window.addEventListener('touchstart', initLandbot, { once: true });
+  var myLandbot;
+  function initLandbot() {
+    if (!myLandbot) {
+      var s = document.createElement('script');
+      s.type = "module"
+      s.async = true;
+      s.addEventListener('load', function() {
+        myLandbot = new Landbot.Popup({
+          configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-3232119-1PYNWBR1K5OAT2IW/index.json',
+        });
+      });
+      s.src = 'https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+  }
+</script>
