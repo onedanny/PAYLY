@@ -1,0 +1,119 @@
+<!--ROBERTO CALDERÓN CALDERÓN, DIEGO RUEDA BRIONES-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payly – Sobre el proyecto</title>
+  <link rel="stylesheet" href="Estilo1.css" />
+</head>
+<body id="pagina-sobre">
+  <header class="encabezado">
+    <div class="logo"><div class="nucleo"></div></div>
+    <div class="marca">
+      <h1>Payly</h1>
+      <small>Gestor de gastos y ahorro</small>
+    </div>
+
+    <nav class="pestanas" aria-label="Secciones">
+      <a class="pestana" href="ingresosGastos.html" title="Ingresos y Gastos">Ingresos y Gastos</a>
+      <a class="pestana" href="ahorro.html" title="Ahorro">Ahorro</a>
+      <a class="pestana" href="registro.html" title="Registro">Registro</a>
+      <a class="pestana activa" href="sobre.html" title="Sobre Payly">Sobre Payly</a>
+    </nav>
+  </header>
+
+  <main class="principal">
+    <section class="panel">
+      <!--SOBRE EL SITIO WEB-->
+      <div class="titulo-seccion">
+        <h2>¿Por qué desarrollamos Payly?</h2>
+      </div>
+      <p>
+        Payly es un proyecto escolar pensado para ayudar a las personas a entender mejor cómo usan su dinero.
+        Muchas veces anotamos nuestros gastos en hojas sueltas, notas del celular o simplemente confiamos en la memoria,
+        lo que provoca que no sepamos en qué se va el sueldo, cuánto podríamos ahorrar o si estamos gastando de más.
+      </p>
+      <p>
+        Con este sitio buscamos simular una herramienta sencilla para registrar ingresos y gastos, crear metas de ahorro
+        y visualizar el progreso. De esta forma se vuelve más fácil detectar fugas de dinero, organizar el presupuesto
+        y motivarse a cumplir objetivos como comprar una laptop, pagar un viaje o formar un fondo de emergencias.
+      </p>
+    </section>
+
+    <section class="panel">
+      <!--OBJETIVO DEL SITIO-->
+      <div class="titulo-seccion">
+        <h2>Objetivo del sitio</h2>
+      </div>
+      <p>
+        El objetivo principal de Payly es <strong>tener un control claro y visual de las finanzas personales</strong>.
+        La idea es que cualquier usuario pueda:
+      </p>
+      <ul>
+        <li>Registrar de forma rápida sus ingresos y gastos diarios.</li>
+        <li>Filtrar movimientos por fecha, categoría y tipo para analizar sus hábitos.</li>
+        <li>Crear metas de ahorro con una fecha límite y simular cuánto debe apartar en cada periodo.</li>
+        <li>Tomar decisiones más informadas sobre en qué gastar y cuánto ahorrar.</li>
+      </ul>
+      <p>
+        Aunque es un proyecto académico, está pensado como si fuera una herramienta real que podría usarse desde la computadora
+        o adaptarse a una app móvil en el futuro.
+      </p>
+    </section>
+
+    <section class="panel">
+      <!--MAPA Y CONTACTO-->
+      <div class="titulo-seccion">
+        <h2>Mapa y contacto</h2>
+        <div class="etiqueta">Simulación de ubicación y soporte</div>
+      </div>
+      <div class="rejilla-2">
+        <div>
+          <p class="muted">Ubicación simulada de las oficinas de Payly (San Luis Potosí, S.L.P., México).</p>
+          <div class="contenedor-mapa">
+            <iframe
+              id="mapa-payly"
+              title="Mapa de Payly"
+              src="https://www.google.com/maps?q=San+Luis+Potosi,Mexico&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+        <div>
+          <p><strong>Teléfonos de contacto</strong></p>
+          <p>Soporte 1: <a href="tel:+514446164050">+514446164050</a></p>
+          <p>Soporte 2: <a href="tel:+514445205145">+514445205145</a></p>
+
+          <p style="margin-top:12px"><strong>Redes sociales (Instagram)</strong></p>
+          <p><a href="https://www.instagram.com/robercal_777/">Roberto Calderon Calderon</p>
+          <p><a href="https://www.instagram.com/biegokk/">Diego Rueda Briones</p>
+          <p class="muted" style="margin-top:12px">
+            Pueden contactarnos a estos sitios.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--CHATBOT PAYLY-->
+  <div id="chatbot-contenedor">
+    <button id="boton-chatbot" class="boton-chatbot" type="button">💬 Ayuda</button>
+    <div id="ventana-chatbot" class="ventana-chatbot oculto" aria-label="Chatbot Payly" aria-live="polite">
+      <header class="encabezado-chatbot">
+        <strong>Asistente Payly</strong>
+        <button type="button" id="cerrar-chatbot" class="boton-cerrar-chatbot">×</button>
+      </header>
+      <div id="chatbot-mensajes" class="chatbot-mensajes"></div>
+      <form id="chatbot-formulario" class="chatbot-formulario">
+        <input id="chatbot-entrada" class="entrada-chatbot" type="text" placeholder="Escribe tu duda sobre gastos o ahorro..." autocomplete="off" />
+        <button class="boton-enviar-chatbot" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="compartido.js"></script>
+  <script src="app-chatbot.js"></script>
+</body>
+</html>
